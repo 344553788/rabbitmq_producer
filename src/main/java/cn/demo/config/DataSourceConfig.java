@@ -39,19 +39,9 @@ public class DataSourceConfig {
 	@ConfigurationProperties("spring.datasource.druid")
 	public DataSource dataSource() {
 		DataSource dataSource = dataSourceProperties().initializeDataSourceBuilder().type(DruidDataSource.class) // 3.
-																													// 可以显示指定连接池，也可以不显示指定；即此行代码可以注释掉
 				.build();
 		return dataSource;
 	}
-	
-	
-//	@Bean
-//	@Primary
-//	public DataSource dataSource() {
-//		DataSource dataSource = new DruidDataSource();
-//		return dataSource;
-//	}
-//	
 
 	@Bean
 	@Primary

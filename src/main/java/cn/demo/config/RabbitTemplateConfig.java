@@ -25,9 +25,6 @@ public class RabbitTemplateConfig implements RabbitTemplate.ConfirmCallback, Rab
 	}
 
 	// 创建一个消息是否投递成功的监听对象confirmCallback,发送到交换机
-	// 第一个参数， 消息的附加消息(自定义id)，
-	// 第二个参数， 消息是否被Broker接收，isAck(true接收,false拒收)，
-	// 第三个参数， 如果拒收，则返回拒收的原因
 	@Override
 	@org.springframework.transaction.annotation.Transactional(rollbackFor = RuntimeException.class)
 	public void confirm(CorrelationData correlationData, boolean ack, String cause) {
