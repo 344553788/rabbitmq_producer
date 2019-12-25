@@ -4,6 +4,16 @@ server:
     context-path: /producer
 
 spring:
+  redis:
+    host: localhost
+    database: 6
+    lettuce:
+      pool:
+        max-idle: 8
+        max-active: 8
+        max-wait: -1ms
+        min-idle: 0
+    timeout: 5000ms
   rabbitmq:
     addresses: 192.168.0.40:5672,192.168.0.42:5672
     username: rabbitmq_admin

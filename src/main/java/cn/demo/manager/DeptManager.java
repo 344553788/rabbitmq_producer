@@ -42,9 +42,9 @@ public class DeptManager {
 				lists.add(entity);
 				CorrelationData correlationData = new CorrelationData();
 				correlationData.setId(String.valueOf(action.getId()));
-				rabbitOperations.convertAndSend(MessageConstant.ExchangeName.DIRECT_EXCHANGE,
-						MessageConstant.RouteName.DIRECT_ROUTE, objectMapper.writeValueAsString(action),
-						correlationData);
+				rabbitOperations.convertAndSend(MessageConstant.Exchange.DIRECT_EXCHANGE,
+						MessageConstant.Route.DLX_ROUTE, objectMapper.writeValueAsString(action),
+					correlationData);
 			} catch (Exception e) {
 				log.info("error", e);
 			}
