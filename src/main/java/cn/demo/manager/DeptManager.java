@@ -1,5 +1,6 @@
 package cn.demo.manager;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,20 +33,15 @@ public class DeptManager {
 	public List<Dept> saveAll(Iterable<Dept> entities) {
 		List<Dept> lists = new ArrayList<Dept>();
 		entities.forEach(action -> {
-			// 如果没有创建交换机的话，在投递消息的时候会投递失败
-			// 第一个参数，交换机的名称
-			// 第二个参数，路由key值
-			// 第三个参数，消息主题对应的类
-			// 第四个参数，消息的附件消息
+			Dept entity = deptDao.save(action);
+			lists.add(entity);
 			try {
-				Dept entity = deptDao.save(action);
-				lists.add(entity);
 				CorrelationData correlationData = new CorrelationData();
 				correlationData.setId(String.valueOf(action.getId()));
-				rabbitOperations.convertAndSend(MessageConstant.Exchange.DIRECT_EXCHANGE,
-						MessageConstant.Route.DLX_ROUTE, objectMapper.writeValueAsString(action),
-					correlationData);
-			} catch (Exception e) {
+				rabbitOperations.convertAndSend(MessageConstant.Exchange.TOPIC_EXCHANGE,
+						MessageConstant.Route.TOPIC_ROUTE.replace("#",String.valueOf(entity.getId())), objectMapper.writeValueAsString(action),
+						correlationData);
+			} catch (IOException e) {
 				log.info("error", e);
 			}
 

@@ -30,7 +30,7 @@ spring:
       cache-null-values: false
       time-to-live: 20s
   rabbitmq:
-    addresses: 192.168.0.40:5672,192.168.0.42:5672
+    addresses: 192.168.1.8:5672
     username: rabbitmq_admin
     password: 123456
     virtual-host: /test
