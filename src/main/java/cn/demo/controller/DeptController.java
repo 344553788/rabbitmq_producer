@@ -12,15 +12,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import cn.demo.entity.Dept;
-import cn.demo.service.DeptService;
+import cn.demo.service.IDeptService;
 
-@RequestMapping("/dept")
+
 @RestController
+@RequestMapping("/dept")
 public class DeptController {
 
 	
 	@Autowired
-	private DeptService deptService;
+	private IDeptService deptService;
 	
 	@PostMapping
 	public ResponseEntity<List<Dept>> saveDepts(@RequestBody List<Dept> depts) {

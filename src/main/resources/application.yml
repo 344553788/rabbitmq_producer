@@ -4,16 +4,31 @@ server:
     context-path: /producer
 
 spring:
+  ###################以下为Redis增加的配置###########################
   redis:
-    host: localhost
-    database: 6
+      #单机配置
+    host: 192.168.43.188
+    port: 6379
+    timeout: 6000
+    password: 123456
+    ###################以下为redis哨兵增加的配置###########################
+#    sentinel:
+#      nodes: 192.168.43.234:26379,192.168.43.234:26380,192.168.43.234:26381
+#      master: mymaster
+    ###################以下为lettuce连接池增加的配置###########################
     lettuce:
       pool:
-        max-idle: 8
-        max-active: 8
-        max-wait: -1ms
-        min-idle: 0
-    timeout: 5000ms
+        max-active:  100 # 连接池最大连接数（使用负值表示没有限制）
+        max-idle: 100 # 连接池中的最大空闲连接
+        min-idle: 50 # 连接池中的最小空闲连接
+        max-wait: 6000 # 连接池最大阻塞等待时间（使用负值表示没有限制
+  ###################以下为springcache增加的配置###########################
+  cache:
+    redis:
+      use-key-prefix: true
+      key-prefix: dev
+      cache-null-values: false
+      time-to-live: 20s
   rabbitmq:
     addresses: 192.168.0.40:5672,192.168.0.42:5672
     username: rabbitmq_admin
