@@ -25,9 +25,9 @@ public abstract class BaseEntity implements Serializable {
 	private static final long serialVersionUID = -8774498438199983383L;
 
 	@Id  
-	@GeneratedValue(strategy = GenerationType.AUTO)  
+	@GeneratedValue(strategy = GenerationType.IDENTITY)  
 	@Column(columnDefinition = "INT(11) UNSIGNED")
-	protected  Long id;
+	protected Long id;
 
 	@Version
 	@Column(columnDefinition = "INT(11) UNSIGNED")
@@ -36,20 +36,21 @@ public abstract class BaseEntity implements Serializable {
 	  /** 创建时间 */
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @Column(columnDefinition = "DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP",insertable=false)
+    @Column(name="create_time", columnDefinition = "DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP",insertable=false)
     private Date createTime;
 
     /** 修改时间 */
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @Column(columnDefinition = "DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP",insertable=false,updatable = false)
+    @Column(name="update_time", columnDefinition = "DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP",insertable=false,updatable = false)
     private Date updateTime;
     
     
-    @Column(columnDefinition = "INT(11) UNSIGNED DEFAULT 1",nullable = false)
+    //int(4) unsigned zerofill NOT NULL DEFAULT '0000'
+    @Column(name="is_active", columnDefinition = "INT UNSIGNED DEFAULT '1'",insertable = false, updatable = true,nullable = false)
     private Integer isActive;
     
-    @Column(columnDefinition = "INT(11) UNSIGNED DEFAULT 0",nullable = false)
+    @Column(name="is_deleted", columnDefinition = "INT UNSIGNED DEFAULT '0'",insertable = false, updatable = true,nullable = false)
     private Integer isDeleted;
 
 }

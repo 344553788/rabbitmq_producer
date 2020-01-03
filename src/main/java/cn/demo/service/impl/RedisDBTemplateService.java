@@ -1,7 +1,6 @@
 package cn.demo.service.impl;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import cn.demo.dao.RedisDBTemplateDao;
 import cn.demo.entity.RedisDBTemplate;
+import cn.demo.manager.RedisDBTemplateManager;
 import cn.demo.service.IRedisDBTemplateService;
 
 @Service
@@ -17,38 +17,40 @@ import cn.demo.service.IRedisDBTemplateService;
 public class RedisDBTemplateService implements IRedisDBTemplateService{
 	
 	@Resource
+	private RedisDBTemplateManager redisDBTemplateManager;
+	
+	@Resource
 	private RedisDBTemplateDao redisDBTemplateDao;
 	
 
 	@Override
-	public RedisDBTemplate saveAndFlush(RedisDBTemplate entity) {
-		RedisDBTemplate dbTemplate = redisDBTemplateDao.saveAndFlush(entity);
-		Optional<RedisDBTemplate> optional = redisDBTemplateDao.findById(dbTemplate.getId());
-		return optional.orElseThrow(RuntimeException::new);
+	public void saveAndFlush(RedisDBTemplate entity) {
+		redisDBTemplateManager.saveAndFlush(entity);
 	}
 	
 	@Override
 	public void deleteById(Long id) {
-		RedisDBTemplate dbTemplate = redisDBTemplateDao.findById(id).orElseThrow(RuntimeException::new);
-		redisDBTemplateDao.delete(dbTemplate);
+		redisDBTemplateManager.deleteById(id);
 	}
 	
 	@Override
-	public void deleteInBatch(Iterable<Long> ids) {
-		List<RedisDBTemplate> redisTemplateList = redisDBTemplateDao.findAllById(ids);
-		redisDBTemplateDao.deleteInBatch(redisTemplateList);
+	public void deleteInBatch(List<Long> ids) {
+		redisDBTemplateManager.deleteInBatch(ids);
 	}
+	
 	
 	@Override
 	public List<RedisDBTemplate> findAll() {
-		return redisDBTemplateDao.findAll();
+		return redisDBTemplateManager.findAllRedisDB();
 	}
 
 	@Override
-	public List<RedisDBTemplate> findAllById(Iterable<Long> ids) {
+	public List<RedisDBTemplate> findAllById(List<Long> ids) {
 		return redisDBTemplateDao.findAllById(ids);
 	}
 
-	
-	
+	@Override
+	public RedisDBTemplate findOne(Long id) {
+		return redisDBTemplateDao.findById(id).orElse(null);
+	}
 }

@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @ComponentScan(basePackages={"cn.demo"})
-@SpringBootApplication 
+@SpringBootApplication
 public class RabbitmqProducerApplication {
 
 	public static void main(String[] args) {

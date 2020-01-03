@@ -38,7 +38,7 @@ public class DataSourceConfig {
 	@Primary
 	@ConfigurationProperties("spring.datasource.druid")
 	public DataSource dataSource() {
-		DataSource dataSource = dataSourceProperties().initializeDataSourceBuilder().type(DruidDataSource.class) // 3.
+		DataSource dataSource = dataSourceProperties().initializeDataSourceBuilder().type(DruidDataSource.class)
 				.build();
 		return dataSource;
 	}

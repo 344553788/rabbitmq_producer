@@ -7,18 +7,18 @@ import cn.demo.entity.RedisDBTemplate;
 public interface IRedisDBTemplateService {
 
 	
-	RedisDBTemplate saveAndFlush(RedisDBTemplate entity);
+	void saveAndFlush(RedisDBTemplate entity);
 	
 	void deleteById(Long id);
 	
-	void deleteInBatch(Iterable<Long> ids);
+	void deleteInBatch(List<Long> ids);
 
 	
 	List<RedisDBTemplate> findAll();
 
 	
-	List<RedisDBTemplate> findAllById(Iterable<Long> ids);
-
-
+	List<RedisDBTemplate> findAllById(List<Long> ids);
+	
+	RedisDBTemplate findOne(Long id);
 	
 }
