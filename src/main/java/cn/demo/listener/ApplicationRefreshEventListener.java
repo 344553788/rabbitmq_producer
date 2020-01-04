@@ -34,7 +34,7 @@ public class ApplicationRefreshEventListener implements ApplicationListener<Cont
 			redisDBTemplateDao.save(localRedisDBTemplate);
 			
 			
-			RedisDBTemplate preRedisDBTemplate = RedisDBTemplate.builder().pass("Face6ook20-17")
+			RedisDBTemplate preRedisDBTemplate = RedisDBTemplate.builder().pass("")
 					.host("192.168.0.45").dbIndex(6).maxActive(8).maxIdle(8).minIdle(8)
 					.port(6379).maxActive(8).shutdownTimeOut(10000l).timeOut(6000l).maxWait(-1l).build();
 			redisDBTemplateDao.save(preRedisDBTemplate);
