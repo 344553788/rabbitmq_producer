@@ -49,7 +49,7 @@ spring:
       connection:
         mode: CHANNEL #cache-mode，缓存连接模式，默认值为CHANNEL(单个connection连接，连接之后关闭，自动销毁)
   datasource:
-    url: jdbc:mysql://localhost:3306/crm?useSSL=false&serverTimezone=UTC&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+    url: jdbc:mysql://192.168.40.46:3306/crm?useSSL=false&serverTimezone=UTC&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
     username: root
     password: qwer1234
     driver-class-name: com.mysql.cj.jdbc.Driver
