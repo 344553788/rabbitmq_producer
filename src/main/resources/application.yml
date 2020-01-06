@@ -4,8 +4,33 @@ server:
     context-path: /producer
 
 spring:
+  ###################以下为Redis增加的配置###########################
+  redis:
+    #单机配置
+    host: localhost
+    port: 6379
+    timeout: 6000
+    database: 1
+    ###################以下为redis哨兵增加的配置###########################
+    #    sentinel:
+    #      nodes: 192.168.43.234:26379,192.168.43.234:26380,192.168.43.234:26381
+    #      master: mymaster
+    ###################以下为lettuce连接池增加的配置###########################
+    lettuce:
+      pool:
+        max-active:  100 # 连接池最大连接数（使用负值表示没有限制）
+        max-idle: 100 # 连接池中的最大空闲连接
+        min-idle: 50 # 连接池中的最小空闲连接
+        max-wait: 6000 # 连接池最大阻塞等待时间（使用负值表示没有限制
+      shutdown-timeout: 10s
+  ###################以下为springcache增加的配置###########################
+  cache:
+    type: redis
+    redis:
+      cache-null-values: false
+      time-to-live: 20s
   rabbitmq:
-    addresses: 192.168.1.8:5672
+    addresses: 192.168.0.40:5672
     username: rabbitmq_admin
     password: 123456
     virtual-host: /test
@@ -24,7 +49,7 @@ spring:
       connection:
         mode: CHANNEL #cache-mode，缓存连接模式，默认值为CHANNEL(单个connection连接，连接之后关闭，自动销毁)
   datasource:
-    url: jdbc:mysql://localhost:3306/crm?useSSL=false&serverTimezone=UTC&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+    url: jdbc:mysql://192.168.40.46:3306/crm?useSSL=false&serverTimezone=UTC&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
     username: root
     password: qwer1234
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -62,14 +87,17 @@ spring:
         allow: ""
   jpa:
     database: mysql
-    generate-ddl: true
+    open-in-view: true
+    hibernate:
+      ddl-auto: create-drop
+      naming:
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
     show-sql: true
     properties:
       hibernate:
         hbm2ddl.auto: create
-        show_sql: true
-        user-new-id-generator-mappings: true
-        dialect: org.hibernate.dialect.MySQL57InnoDBDialect
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect        
 logging:
   level:
     org.springframework: INFO

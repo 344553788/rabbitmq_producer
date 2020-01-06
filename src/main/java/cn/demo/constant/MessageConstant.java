@@ -1,29 +1,25 @@
 package cn.demo.constant;
 
 public interface MessageConstant {
-
-	interface QueueName{
-
-		String FANOUT_QUEUE = "FANOUT_QUEUE";
-		String message_queue  = "message_queue";
-		String mail_queue = "mail_queue";
-		String message_fail = "message_fail";
-		String dead_letter_queue ="dead_letter_queue";
+	
+	public static interface Queue{
+		public static String DIRECT_QUEUE = "direct.queue";
+		public static String FANOUT_QUEUE = "fanout.queue";
+		public static String TOPIC_QUEUE  = "topic.queue";
+		public static String DLX_QUEUE ="dlx_queue";
 	}
-
-	interface ExchangeName{
-		String mail_exchange = "mail_exchange";
-		String FANOUT_EXCHANGE = "FANOUT_EXCHANGE";
-		String message_exchange  = "message_exchange";
-		String dead_letter_exchange ="dead_letter_exchange";
+	
+	public static interface Exchange{
+		public static String DIRECT_EXCHANGE = "direct.exc";
+		public static String FANOUT_EXCHANGE = "fanout.exc";
+		public static String TOPIC_EXCHANGE  = "topic.exc";
+		public static String DLX_EXCHANGE ="dlx_exc";
 	}
-
-	interface RouteName{
-		String FANOUT_ROUTE = "FANOUT_ROUTE";
-		String message_route  = "#.message";
-		String message_fail ="message_fail";
-		String mail_queue_fail ="mail_queue_fail";
-		String mail_routing_key = "mail_routing_key";
+	
+	public static interface Route{
+		public static String DIRECT_ROUTE = "direct.route";
+		public static String FANOUT_ROUTE = "fanout.route";
+		public static String TOPIC_ROUTE  = "#.route";
+		public static String DLX_ROUTE ="dlx.route";
 	}
-
 }
