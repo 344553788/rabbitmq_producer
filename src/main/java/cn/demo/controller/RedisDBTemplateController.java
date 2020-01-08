@@ -28,33 +28,33 @@ public class RedisDBTemplateController {
 	@PostMapping
 	public RestResponse<Void> saveAndFlush(@RequestBody RedisDBTemplate entity) {
 		redisDBTemplateService.saveAndFlush(entity);
-		return RestResponse.data();
+		return RestResponse.success();
 	}
 	
 	@GetMapping("/query")
 	RestResponse<PageEntity<RedisDBTemplate>> findAllByCondition(Pageable pageable,@RequestBody RedisDBRequest request) {
 		
-		return RestResponse.data(redisDBTemplateService.findAllByCondition(request));
+		return RestResponse.success(redisDBTemplateService.findAllByCondition(request));
 	}
 	
 	@GetMapping("/{id}")
 	RestResponse<RedisDBTemplate> findOne(@PathVariable Long id) {
-		return RestResponse.data(redisDBTemplateService.findOne(id));
+		return RestResponse.success(redisDBTemplateService.findOne(id));
 	}
 	
 	@DeleteMapping("/{id}")
 	RestResponse<Void> deleteById(@PathVariable Long id) {
 		redisDBTemplateService.deleteById(id);
-		return RestResponse.data();
+		return RestResponse.success();
 	}
 	
 	@GetMapping
 	RestResponse<List<RedisDBTemplate>> findAll() {
-		return RestResponse.data(redisDBTemplateService.findAll());
+		return RestResponse.success(redisDBTemplateService.findAll());
 	}
 	@DeleteMapping
 	RestResponse<Void> deleteInBatch(@RequestBody List<Long> ids) {
 		redisDBTemplateService.deleteInBatch(ids);
-		return RestResponse.data();
+		return RestResponse.success();
 	}
 }
